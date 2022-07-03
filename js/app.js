@@ -83,8 +83,64 @@ const consultarApi = async () => {
 
 const cotizarValores = (cotizacion) => {
 
-  const {CHANGE24HOUR, CHANGEHOUR, CHANGEDAY, PRICE} = cotizacion
+  limpiarHtml();
+
+  let lowSigno = '';
+  let highSigno = '';
+  let changeSigno = '';
+  let priceSigno = '';
+  let openSigno = '';
+
+  const {LOWDAY, HIGHDAY, CHANGEHOUR, PRICE, OPENDAY} = cotizacion;
+
+
+  if('ARS' === PRICE.split(' ')[0] || 'ARS' === LOWDAY.split(' ')[0] || 'ARS' === HIGHDAY.split(' ')[0] || 'ARS' === CHANGEHOUR.split(' ')[0] || 'ARS' === OPENDAY.split(' ')[0]) {
+
+    lowSigno = `$ ${LOWDAY.split(' ')[1]}`;
+    highSigno = `$ ${HIGHDAY.split(' ')[1]}`;
+    changeSigno = `$ ${CHANGEHOUR.split(' ')[1]}`;
+    priceSigno = `$ ${PRICE.split(' ')[1]}`;
+    openSigno = `$ ${OPENDAY.split(' ')[1]}`;
+
+  } else {
+
+    lowSigno = LOWDAY;
+    highSigno = HIGHDAY;
+    changeSigno = CHANGEHOUR;
+    priceSigno = PRICE;
+    openSigno = OPENDAY;
 
   }
+
+  const price = document.createElement('h1');
+  price.innerHTML = `La cotizacion del actual es  <span>${priceSigno}</span>`;
+
+  const open = document.createElement('h3');
+  open.innerHTML = `La cotizacion al principio dia es <span>${openSigno}</span>`;
+
+  const change = document.createElement('p');
+  change.innerHTML = `Cambio por hora : <span>${changeSigno}</span>`;
+
+  const high = document.createElement('p');
+  high.innerHTML = `Cotizacion mas alta del dia  <span>${highSigno}</span>`;
+
+  const low = document.createElement('p');
+  low.innerHTML = `Cotizacion mas baja del dia  <span>${lowSigno}</span>`;
+
+
+  resultado.appendChild(price);
+  resultado.appendChild(open);
+  resultado.appendChild(change);
+  resultado.appendChild(high);
+  resultado.appendChild(low);
+
+
+}
+
+const limpiarHtml = () => {
+  while(resultado.firstChild) {
+    resultado.remove(resultado.firstChild)
+  }
+}
 
 
