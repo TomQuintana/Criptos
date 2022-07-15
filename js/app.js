@@ -146,7 +146,7 @@ const cotizarValores = (cotizacion) => {
 
 const limpiarHtml = () => {
   while(resultado.firstChild) {
-    resultado.remove(resultado.firstChild)
+    resultado.removeChild(resultado.firstChild)
   }
 }
 
