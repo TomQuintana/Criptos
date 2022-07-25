@@ -9,6 +9,8 @@ const obj = {
     criptomoneda: ''
 }
 
+
+
 document.addEventListener('DOMContentLoaded', () => {
     consultarCriptomoneda();
 
@@ -19,17 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 
-const consultarCriptomoneda = async () => {
-    const url = 'https://min-api.cryptocompare.com/data/top/totalvolfull?limit=10&tsym=USD';
-
-    try {
-        const respuesta = await fetch(url) ;
-        const resultado = await respuesta.json();
-        const resCriptomoneda = llenarSelect(resultado.Data);
-    } catch (error) {
-        console.log(error);
-    }
+try {
+  const respuesta = await fetch(url) ;
+  const resultado = await respuesta.json();
+  const resCriptomoneda = llenarSelect(resultado.Data);
+} catch (error) {
+  console.log(error);
 }
+
 
 // llena select y toma un array
 const llenarSelect = (criptomonedas) => {
@@ -54,7 +53,6 @@ const llenarSelect = (criptomonedas) => {
         
     });
 }
-//TODO: leer form, leer los datos y luego enviarlos para mostrar en pantalla
 
 const leerValor = (e) => {
   obj[e.target.name] = e.target.value;
@@ -146,7 +144,7 @@ const cotizarValores = (cotizacion) => {
 
 const limpiarHtml = () => {
   while(resultado.firstChild) {
-    resultado.remove(resultado.firstChild)
+    resultado.removeChild(resultado.firstChild)
   }
 }
 
